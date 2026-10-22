@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Minho's Birthday</title>
+    <title>Mingseung</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
@@ -15,7 +15,6 @@
         .app-window.active { transform: translateY(0); }
         .ios-icon { width: 60px; height: 60px; border-radius: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); position: relative; overflow: hidden; }
         
-        /* 제어센터 슬라이더 스타일 */
         input[type=range][orient=vertical] {
             writing-mode: bt-lr;
             appearance: slider-vertical;
@@ -30,23 +29,17 @@
     <!-- 아이폰 프레임 -->
     <div id="iphone-frame" class="relative w-full h-full sm:max-w-[430px] sm:max-h-[932px] bg-black text-white overflow-hidden flex flex-col justify-between sm:rounded-[50px] sm:border-[12px] sm:border-gray-800 shadow-2xl">
         
-        <!-- 화면 밝기 조절용 오버레이 레이어 -->
+        <!-- 화면 밝기 조절용 오버레이 -->
         <div id="brightness-overlay" class="absolute inset-0 bg-black pointer-events-none z-[250] transition-opacity duration-100" style="opacity: 0;"></div>
 
-        <!-- 상단 상태바 (스와이프 다운 트리거) -->
-        <div id="status-bar-area" class="w-full h-12 px-6 flex justify-between items-center text-sm font-semibold z-50 shrink-0 bg-black/40 backdrop-blur-md cursor-pointer" ontouchstart="ccTouchStart(event)" ontouchend="ccTouchEnd(event)" onmousedown="ccTouchStart(event)" onmouseup="ccTouchEnd(event)">
-            <div class="flex items-center space-x-1.5">
-                <span id="current-time">01:13</span>
-                <span>🌙</span>
+        <!-- 상단 상태바 -->
+        <div id="status-bar-area" class="w-full h-12 px-6 flex justify-between items-center text-xs font-semibold z-50 shrink-0 bg-black/40 backdrop-blur-md cursor-pointer" ontouchstart="ccTouchStart(event)" ontouchend="ccTouchEnd(event)" onmousedown="ccTouchStart(event)" onmouseup="ccTouchEnd(event)">
+            <div class="flex items-center space-x-2">
+                <span id="current-time" class="text-sm">01:35</span>
+                <span class="text-[11px] text-gray-300 tracking-tight">etisalat 50 4G</span>
             </div>
-            <div class="flex items-center space-x-2 text-xs">
-                <div class="flex items-end space-x-0.5 h-3">
-                    <div class="w-1 h-1.5 bg-white rounded-full"></div>
-                    <div class="w-1 h-2 bg-white rounded-full"></div>
-                    <div class="w-1 h-2.5 bg-white rounded-full"></div>
-                    <div class="w-1 h-3 bg-white/40 rounded-full"></div>
-                </div>
-                <span>5G</span>
+            <div class="flex items-center space-x-2">
+                <span class="text-[11px]">46%</span>
                 <div class="flex items-center">
                     <div class="w-6 h-3 border border-white rounded-sm p-0.5 flex items-center">
                         <div class="w-full h-full bg-yellow-400 rounded-2xs"></div>
@@ -60,10 +53,10 @@
         <div class="relative flex-1 overflow-hidden flex flex-col">
             
             <!-- 1. 잠금 화면 -->
-            <div id="lock-screen" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between py-8 px-6 transition-transform duration-500" style="background-image: url('https://i.ibb.co/6R59V1z/goldfish.jpg'), url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80');" ontouchstart="lockTouchStart(event)" ontouchend="lockTouchEnd(event)" onmousedown="lockTouchStart(event)" onmouseup="lockTouchEnd(event)">
+            <div id="lock-screen" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col justify-between py-8 px-6 transition-transform duration-500" style="background-image: url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80');" ontouchstart="lockTouchStart(event)" ontouchend="lockTouchEnd(event)" onmousedown="lockTouchStart(event)" onmouseup="lockTouchEnd(event)">
                 <div class="text-center mt-2">
-                    <div class="text-sm font-medium drop-shadow text-gray-700">9월 22일 화요일</div>
-                    <div id="lock-time" class="text-7xl font-bold tracking-tighter drop-shadow text-gray-800 mt-1">01:13</div>
+                    <div class="text-sm font-medium drop-shadow text-gray-300">9월 22일 화요일</div>
+                    <div id="lock-time" class="text-7xl font-bold tracking-tighter drop-shadow text-white mt-1">01:35</div>
                 </div>
                 <div id="pin-container" class="w-full max-w-xs mx-auto flex flex-col items-center space-y-4 opacity-0 pointer-events-none transition-opacity duration-300 bg-black/40 backdrop-blur-xl p-6 rounded-3xl">
                     <div class="text-xs font-medium tracking-wide text-gray-200">비밀번호를 입력하세요 (승민 생일)</div>
@@ -74,22 +67,22 @@
                         <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-white bg-transparent transition-all"></div>
                     </div>
                     <div class="grid grid-cols-3 gap-2.5 w-full">
-                        <button onclick="pressPin('1')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">1</button>
-                        <button onclick="pressPin('2')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">2</button>
-                        <button onclick="pressPin('3')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">3</button>
-                        <button onclick="pressPin('4')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">4</button>
-                        <button onclick="pressPin('5')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">5</button>
-                        <button onclick="pressPin('6')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">6</button>
-                        <button onclick="pressPin('7')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">7</button>
-                        <button onclick="pressPin('8')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">8</button>
-                        <button onclick="pressPin('9')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">9</button>
+                        <button onclick="pressPin('1')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">1</button>
+                        <button onclick="pressPin('2')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">2</button>
+                        <button onclick="pressPin('3')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">3</button>
+                        <button onclick="pressPin('4')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">4</button>
+                        <button onclick="pressPin('5')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">5</button>
+                        <button onclick="pressPin('6')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">6</button>
+                        <button onclick="pressPin('7')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">7</button>
+                        <button onclick="pressPin('8')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">8</button>
+                        <button onclick="pressPin('9')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">9</button>
                         <div></div>
-                        <button onclick="pressPin('0')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">0</button>
+                        <button onclick="pressPin('0')" class="h-12 rounded-full bg-white/25 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">0</button>
                         <button onclick="clearPin()" class="h-12 rounded-full text-xs font-medium flex items-center justify-center text-gray-300">지우기</button>
                     </div>
                 </div>
                 <div class="flex flex-col items-center space-y-4">
-                    <div id="swipe-text" class="text-xs text-gray-600 font-medium tracking-wider animate-bounce">▲ 위로 쓸어올려 잠금 해제</div>
+                    <div id="swipe-text" class="text-xs text-gray-300 font-medium tracking-wider animate-bounce">▲ 위로 쓸어올려 잠금 해제</div>
                     <div class="w-full flex justify-between items-center px-4">
                         <div class="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white text-xl shadow-lg">🔦</div>
                         <div class="w-12 h-12 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white text-xl shadow-lg">📷</div>
@@ -173,6 +166,8 @@
             </div>
 
             <!-- 3. 개별 앱들 -->
+            
+            <!-- 갤러리 앱 (깨끗한 상태) -->
             <div id="app-gallery" class="app-window absolute inset-0 bg-black text-white z-50 flex flex-col">
                 <div id="gallery-tab-library" class="flex-1 flex flex-col overflow-hidden">
                     <div class="px-5 py-4 flex justify-between items-center bg-black/80 backdrop-blur-md shrink-0 border-b border-gray-800">
@@ -185,11 +180,7 @@
                             <button onclick="closeApp()" class="text-blue-400 font-semibold text-sm">완료</button>
                         </div>
                     </div>
-                    <div id="gallery-grid" class="flex-1 p-1 grid grid-cols-3 gap-1 overflow-y-auto">
-                        <div onclick="openPhotoViewerById(1)" class="aspect-square bg-gray-800 rounded-sm overflow-hidden cursor-pointer relative"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover"></div>
-                        <div onclick="openPhotoViewerById(2)" class="aspect-square bg-gray-800 rounded-sm overflow-hidden cursor-pointer relative"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover"></div>
-                        <div onclick="openPhotoViewerById(3)" class="aspect-square bg-gray-800 rounded-sm overflow-hidden cursor-pointer relative"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover"></div>
-                    </div>
+                    <div id="gallery-grid" class="flex-1 p-1 grid grid-cols-3 gap-1 overflow-y-auto"></div>
                 </div>
 
                 <div id="gallery-tab-collections" class="flex-1 flex flex-col overflow-y-auto p-4 space-y-6 hidden">
@@ -198,12 +189,10 @@
                         <div class="text-lg font-bold text-gray-300 flex items-center">Pinned <span class="ml-1 text-gray-500">></span></div>
                         <div class="grid grid-cols-2 gap-3">
                             <div onclick="openCollectionFolder('favorites')" class="bg-gray-900 rounded-2xl p-3 flex flex-col justify-between h-36 relative overflow-hidden cursor-pointer border border-gray-800">
-                                <div class="absolute inset-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80');"></div>
                                 <span class="text-xl">❤️</span>
                                 <span class="font-bold text-sm z-10 drop-shadow">Favorites</span>
                             </div>
                             <div onclick="openCollectionFolder('recent')" class="bg-gray-900 rounded-2xl p-3 flex flex-col justify-between h-36 relative overflow-hidden cursor-pointer border border-gray-800">
-                                <div class="absolute inset-0 opacity-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=300&q=80');"></div>
                                 <span class="text-xl">📥</span>
                                 <span class="font-bold text-sm z-10 drop-shadow">Recently Saved</span>
                             </div>
@@ -236,7 +225,6 @@
                 </div>
             </div>
 
-            <!-- 컬렉션 상세 폴더 뷰 -->
             <div id="collection-folder-view" class="absolute inset-0 bg-black z-[90] flex flex-col hidden">
                 <div class="px-5 py-4 flex justify-between items-center bg-black/80 backdrop-blur-md shrink-0 border-b border-gray-800">
                     <button onclick="closeCollectionFolder()" class="text-blue-400 font-semibold text-sm">〈 Collections</button>
@@ -246,11 +234,10 @@
                 <div id="folder-grid" class="flex-1 p-2 grid grid-cols-3 gap-2 overflow-y-auto"></div>
             </div>
 
-            <!-- 사진 상세 보기 뷰어 -->
             <div id="photo-viewer" class="absolute inset-0 bg-black z-[110] flex flex-col hidden">
                 <div class="px-5 py-4 flex justify-between items-center text-white shrink-0">
                     <button onclick="closePhotoViewer()" class="text-blue-400 font-semibold text-sm">〈 앨범</button>
-                    <span class="text-xs text-gray-400">Yesterday 18:52</span>
+                    <span class="text-xs text-gray-400">Photo Details</span>
                     <button class="text-blue-400 text-lg">•••</button>
                 </div>
                 <div class="flex-1 flex items-center justify-center p-2">
@@ -265,7 +252,6 @@
                 </div>
             </div>
 
-            <!-- 삭제된 사진 관리 뷰 -->
             <div id="trash-manage-view" class="absolute inset-0 bg-black z-[120] flex flex-col hidden">
                 <div class="px-5 py-4 flex justify-between items-center bg-black/80 backdrop-blur-md shrink-0 border-b border-gray-800">
                     <button onclick="document.getElementById('trash-manage-view').classList.add('hidden')" class="text-blue-400 font-semibold text-sm">〈 Utilities</button>
@@ -275,52 +261,210 @@
                 <div id="trash-grid" class="flex-1 p-2 grid grid-cols-3 gap-2 overflow-y-auto"></div>
             </div>
 
-            <!-- 카카오톡 앱 -->
-            <div id="app-kakao" class="app-window absolute inset-0 bg-[#b2c7d9] text-black z-50 flex flex-col">
-                <div class="px-5 py-4 bg-[#b2c7d9] border-b border-[#9bbbd0] flex justify-between items-center shrink-0">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-9 h-9 rounded-full bg-gray-400 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover"></div>
-                        <span class="font-bold text-sm">민호 🐈</span>
+            <!-- ════════ 카카오톡 앱 (스크린샷 기반 완벽 재현) ════════ -->
+            <div id="app-kakao" class="app-window absolute inset-0 bg-white text-black z-50 flex flex-col">
+                <!-- 1. 채팅 목록 화면 -->
+                <div id="kakao-chat-list-view" class="flex-1 flex flex-col bg-white">
+                    <!-- 상단 헤더 (image_20.png 참고) -->
+                    <div class="px-5 pt-3 pb-2 flex justify-between items-center bg-white shrink-0">
+                        <span class="text-2xl font-bold">Chats</span>
+                        <div class="flex items-center space-x-4 text-xl">
+                            <span>🔍</span>
+                            <span>➕</span>
+                            <span>⚙️</span>
+                        </div>
                     </div>
-                    <button onclick="closeApp()" class="font-semibold text-sm text-gray-700">닫기</button>
-                </div>
-                <div id="chat-container" class="flex-1 p-4 overflow-y-auto space-y-3">
-                    <div class="flex items-end space-x-2">
-                        <div class="w-8 h-8 rounded-full bg-gray-400 overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover"></div>
-                        <div class="bg-white p-3 rounded-2xl rounded-tl-sm text-sm max-w-[75%] shadow-sm">오늘 내 생일인 거 알지? 이따 맛있는 거 사주기 약속 👀🎂</div>
+                    <!-- 탭 필터 (All, Unread, ChatGPT, Calls) -->
+                    <div class="px-4 py-2 flex space-x-2 overflow-x-auto hide-scrollbar shrink-0 border-b border-gray-100">
+                        <span class="bg-black text-white px-4 py-1.5 rounded-full text-xs font-semibold shrink-0">All</span>
+                        <span class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold shrink-0">Unread</span>
+                        <span class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold shrink-0">ChatGPT</span>
+                        <span class="bg-gray-100 text-gray-700 px-4 py-1.5 rounded-full text-xs font-semibold shrink-0">Calls</span>
+                    </div>
+
+                    <!-- 채팅방 목록 스크롤 영역 -->
+                    <div class="flex-1 overflow-y-auto divide-y divide-gray-50">
+                        
+                        <!-- 1. 개💛 (김승민) - 고정핀 채팅방 -->
+                        <div onclick="openKakaoChat('seungmin')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-200 flex items-center justify-center text-xl shrink-0">🐶</div>
+                                <div class="flex-1 min-w-0">
+                                    <div class="flex items-center space-x-1">
+                                        <span class="font-bold text-sm truncate">개💛</span>
+                                        <span class="text-xs text-gray-400">📌</span>
+                                    </div>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">일어나면 전화할게</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">00:00</div>
+                                <span class="inline-block w-4 h-4 bg-red-500 text-white rounded-full text-[10px] text-center font-bold mt-1">4</span>
+                            </div>
+                        </div>
+
+                        <!-- 2. 박민섭 -->
+                        <div onclick="openKakaoChat('minsub')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-gray-200 flex items-center justify-center text-xl shrink-0">👦</div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="font-bold text-sm truncate">박민섭</span>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">ㅅㅊㅅㅊ</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">Yesterday</div>
+                            </div>
+                        </div>
+
+                        <!-- 3. 김준호 -->
+                        <div onclick="openKakaoChat('junho')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-xl shrink-0">🧑</div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="font-bold text-sm truncate">김준호</span>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">조만간 얼굴 한 번 보자</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">Yesterday</div>
+                            </div>
+                        </div>
+
+                        <!-- 4. 올리브영 -->
+                        <div onclick="openKakaoChat('oliveyoung')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center text-xl shrink-0">🛍️</div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="font-bold text-sm truncate">올리브영</span>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">[10월 생일쿠폰 지급] 이민호 님의 생일을 축하드립니다!</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">Oct 22</div>
+                                <span class="inline-block w-4 h-4 bg-red-500 text-white rounded-full text-[10px] text-center font-bold mt-1">1</span>
+                            </div>
+                        </div>
+
+                        <!-- 5. 조유정 -->
+                        <div onclick="openKakaoChat('yujeong')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-pink-100 flex items-center justify-center text-xl shrink-0">👩</div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="font-bold text-sm truncate">조유정</span>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">오늘 뭐 하세요?</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">Oct 22</div>
+                                <span class="inline-block w-4 h-4 bg-red-500 text-white rounded-full text-[10px] text-center font-bold mt-1">2</span>
+                            </div>
+                        </div>
+
+                        <!-- 6. 대한항공 -->
+                        <div onclick="openKakaoChat('koreanair')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-sky-100 flex items-center justify-center text-xl shrink-0">✈️</div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="font-bold text-sm truncate">대한항공</span>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">[항공권 예약 확정] 이민호 님의 오클랜드행 항공권이 예약되었습니다.</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">Oct 20</div>
+                            </div>
+                        </div>
+
+                        <!-- 7. 롯데택배 -->
+                        <div onclick="openKakaoChat('lotte')" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50 cursor-pointer">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="w-12 h-12 rounded-2xl bg-red-100 flex items-center justify-center text-xl shrink-0">📦</div>
+                                <div class="flex-1 min-w-0">
+                                    <span class="font-bold text-sm truncate">롯데택배</span>
+                                    <div class="text-xs text-gray-500 truncate mt-0.5">김승민님께서 보내신 상품이 (문 앞)에 도착했습니다.</div>
+                                </div>
+                            </div>
+                            <div class="text-right shrink-0 ml-2">
+                                <div class="text-[11px] text-gray-400">Oct 19</div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div class="p-3 bg-white flex items-center space-x-2 shrink-0">
-                    <input id="chat-input" type="text" placeholder="메시지 입력..." class="flex-1 bg-gray-100 px-4 py-2.5 rounded-full text-sm outline-none" onkeypress="if(event.key === 'Enter') sendKakao()">
-                    <button onclick="sendKakao()" class="bg-yellow-400 px-4 py-2 rounded-full text-sm font-bold">전송</button>
+
+                <!-- 2. 개별 채팅방 화면 (초기엔 숨김) -->
+                <div id="kakao-chat-room-view" class="absolute inset-0 bg-[#b2c7d9] text-black z-10 flex flex-col hidden">
+                    <!-- 채팅방 헤더 -->
+                    <div class="px-4 py-3 bg-[#b2c7d9] border-b border-[#9bbbd0] flex justify-between items-center shrink-0">
+                        <div class="flex items-center space-x-2">
+                            <button onclick="closeKakaoChat()" class="text-lg font-bold">〈</button>
+                            <span id="chat-room-title" class="font-bold text-sm">채팅방</span>
+                        </div>
+                        <div class="flex items-center space-x-4 text-lg">
+                            <span>🔍</span>
+                            <span>📞</span>
+                            <span>☰</span>
+                        </div>
+                    </div>
+
+                    <!-- 채팅 메시지 스크롤 영역 -->
+                    <div id="chat-messages-area" class="flex-1 p-4 overflow-y-auto space-y-3">
+                        <!-- 동적으로 메시지 삽입됨 -->
+                    </div>
+
+                    <!-- 하단 입력창 및 버튼 (image_21.png 참고) -->
+                    <div class="p-2 bg-white flex items-center space-x-2 shrink-0 relative">
+                        <button onclick="togglePlusMenu()" class="text-xl px-1 text-gray-500 font-bold">+</button>
+                        <input id="chat-input" type="text" placeholder="Enter a message" class="flex-1 bg-gray-100 px-4 py-2 rounded-full text-sm outline-none" onkeypress="if(event.key === 'Enter') sendKakaoMessage()">
+                        <span class="text-lg text-gray-400">😊</span>
+                        <span class="text-lg text-gray-400">#</span>
+                    </div>
+
+                    <!-- 3. 플러스(+) 메뉴 팝업 (image_22.png 참고) -->
+                    <div id="plus-menu-popup" class="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-2xl p-5 z-35 transform translate-y-full transition-transform duration-300 flex flex-col space-y-4">
+                        <div class="w-12 h-1 bg-gray-300 rounded-full mx-auto cursor-pointer" onclick="togglePlusMenu()"></div>
+                        <div class="text-xs font-semibold text-gray-400">Recent Photos</div>
+                        <!-- 최근 사진 썸네일 가로 스크롤 바 -->
+                        <div class="flex space-x-3 overflow-x-auto hide-scrollbar py-1">
+                            <div class="w-20 h-20 bg-gray-200 rounded-2xl flex items-center justify-center shrink-0 cursor-pointer text-2xl" onclick="sendPhotoMessage('📷')">📷</div>
+                            <div class="w-20 h-20 bg-amber-100 rounded-2xl flex items-center justify-center shrink-0 cursor-pointer overflow-hidden" onclick="sendPhotoMessage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80')">
+                                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
+                            </div>
+                            <div class="w-20 h-20 bg-blue-100 rounded-2xl flex items-center justify-center shrink-0 cursor-pointer overflow-hidden" onclick="sendPhotoMessage('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80')">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=300&q=80" class="w-full h-full object-cover">
+                            </div>
+                        </div>
+                        <!-- 기능 아이콘 목록 -->
+                        <div class="grid grid-cols-4 gap-4 pt-2 border-t border-gray-100 text-center">
+                            <div onclick="togglePlusMenu(); alert('Photo')" class="flex flex-col items-center cursor-pointer"><span class="text-xl mb-1">🖼️</span><span class="text-[11px] text-gray-600">Photo</span></div>
+                            <div onclick="togglePlusMenu(); alert('Capture')" class="flex flex-col items-center cursor-pointer"><span class="text-xl mb-1">📷</span><span class="text-[11px] text-gray-600">Capture</span></div>
+                            <div onclick="togglePlusMenu(); alert('Call')" class="flex flex-col items-center cursor-pointer"><span class="text-xl mb-1">📞</span><span class="text-[11px] text-gray-600">Call</span></div>
+                            <div onclick="togglePlusMenu(); alert('Gift Shop')" class="flex flex-col items-center cursor-pointer"><span class="text-xl mb-1">🎁</span><span class="text-[11px] text-gray-600">Gift Shop</span></div>
+                        </div>
+                        <div class="grid grid-cols-4 gap-4 text-center">
+                            <div onclick="togglePlusMenu(); alert('Money')" class="flex flex-col items-center cursor-pointer"><span class="text-xl mb-1">💰</span><span class="text-[11px] text-gray-600">Money</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 닫기 버튼 -->
+                <div class="absolute top-3 right-4 z-20">
+                    <button onclick="closeApp()" class="text-xs font-semibold bg-gray-200/80 px-3 py-1 rounded-full">닫기</button>
                 </div>
             </div>
 
-            <!-- 인스타그램 앱 -->
+            <!-- 인스타그램 앱 (깨끗한 상태) -->
             <div id="app-insta" class="app-window absolute inset-0 bg-white text-black z-50 flex flex-col">
                 <div class="px-5 py-4 border-b flex justify-between items-center shrink-0">
                     <h2 class="text-base font-bold">Instagram</h2>
                     <button onclick="closeApp()" class="text-blue-600 font-semibold text-sm">닫기</button>
                 </div>
-                <div class="flex-1 overflow-y-auto">
-                    <div class="p-3 flex items-center space-x-3 border-b">
-                        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-yellow-400 to-pink-500 p-0.5"><div class="w-full h-full rounded-full bg-white overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" class="w-full h-full object-cover"></div></div>
-                        <span class="font-semibold text-sm">minho_lee</span>
-                    </div>
-                    <div><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" class="w-full aspect-square object-cover"></div>
-                    <div class="p-4 text-sm space-y-1">
-                        <div class="flex space-x-4 text-xl">
-                            <button onclick="this.innerText = this.innerText === '❤️' ? '🤍' : '❤️'">❤️</button>
-                            <span>💬</span>
-                            <span>✈️</span>
-                        </div>
-                        <div class="font-semibold text-xs pt-1">좋아요 922개</div>
-                        <div><span class="font-semibold mr-2 text-sm">minho_lee</span>생일 축하해준 모든 분들 진심으로 고마워요! 사랑합니다 ❤️</div>
-                    </div>
+                <div class="flex-1 overflow-y-auto flex items-center justify-center text-gray-400 text-sm">
+                    게시물이 없습니다.
                 </div>
             </div>
 
-            <!-- 캘린더 앱 -->
+            <!-- 캘린더 앱 (깨끗한 상태) -->
             <div id="app-calendar" class="app-window absolute inset-0 bg-white text-black z-50 flex flex-col">
                 <div class="px-5 py-4 border-b flex justify-between items-center shrink-0">
                     <h2 class="text-base font-bold">Calendar</h2>
@@ -335,7 +479,7 @@
                         <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
                         <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
                         <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
-                        <span onclick="alert('🎉 9월 22일: 리노의 생일!')" class="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mx-auto font-bold shadow cursor-pointer">22</span>
+                        <span class="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mx-auto font-bold shadow">22</span>
                         <span>23</span>
                     </div>
                 </div>
@@ -365,27 +509,31 @@
 
         </div>
 
-        <!-- ════════ iOS 제어센터 (Control Center) ════════ -->
-        <div id="control-center" class="absolute inset-0 bg-black/60 backdrop-blur-2xl z-[300] flex flex-col p-6 pt-16 transform -translate-y-full transition-transform duration-300 ease-out text-white overflow-y-auto">
+        <!-- ════════ iOS 제어센터 ════════ -->
+        <div id="control-center" class="absolute inset-0 bg-black/65 backdrop-blur-2xl z-[300] flex flex-col p-6 pt-12 transform -translate-y-full transition-transform duration-300 ease-out text-white overflow-y-auto">
             
-            <div class="flex justify-between items-center mb-6">
-                <span class="text-xs font-semibold tracking-wider text-gray-400">Control Center</span>
-                <button onclick="toggleControlCenter()" class="bg-white/20 px-3 py-1 rounded-full text-xs font-bold">닫기 ✕</button>
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-xl font-bold">+</span>
+                <div class="w-28 h-7 bg-black rounded-full flex items-center justify-center text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-1"></span> Connected
+                </div>
+                <span class="text-xl font-bold">⏻</span>
             </div>
 
             <div class="grid grid-cols-2 gap-4">
-                <!-- 상단 좌측 연결성 위젯 -->
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-4 grid grid-cols-2 gap-3 shadow-lg">
-                    <button class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow">✈️</button>
+                <div class="bg-white/10 backdrop-blur-md rounded-[32px] p-3.5 grid grid-cols-2 gap-3 shadow-lg">
+                    <button class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shadow">✈️</button>
                     <button class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow">📡</button>
-                    <button class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shadow">📶</button>
-                    <button class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-xl shadow">🔵</button>
+                    <button class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shadow">🔒</button>
+                    <button class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-xl shadow">🔵</button>
                 </div>
 
-                <!-- 상단 우측 미디어 플레이어 위젯 -->
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-4 flex flex-col justify-between shadow-lg">
-                    <span class="text-[11px] text-gray-400">Not Playing</span>
-                    <div class="flex justify-around items-center my-2 text-xl">
+                <div class="bg-white/10 backdrop-blur-md rounded-[32px] p-4 flex flex-col justify-between shadow-lg">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 bg-gray-700 rounded-xl"></div>
+                        <span class="text-[11px] text-gray-300 font-medium">Not Playing</span>
+                    </div>
+                    <div class="flex justify-around items-center my-1 text-lg">
                         <span>⏮️</span>
                         <span>▶️</span>
                         <span>⏭️</span>
@@ -393,64 +541,18 @@
                 </div>
             </div>
 
-            <!-- 슬라이더 영역 (밝기 & 볼륨) -->
             <div class="grid grid-cols-2 gap-4 mt-4">
-                <!-- 밝기 슬라이더 -->
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-5 flex flex-col items-center justify-between h-48 shadow-lg">
+                <div class="bg-white/10 backdrop-blur-md rounded-[32px] p-5 flex flex-col items-center justify-between h-44 shadow-lg">
                     <input type="range" orient="vertical" min="0" max="80" value="0" oninput="adjustBrightness(this.value)" class="cursor-pointer accent-white">
-                    <span class="text-2xl mt-2">☀️</span>
+                    <span class="text-2xl mt-1">☀️</span>
                 </div>
-                <!-- 볼륨 슬라이더 -->
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-5 flex flex-col items-center justify-between h-48 shadow-lg">
+                <div class="bg-white/10 backdrop-blur-md rounded-[32px] p-5 flex flex-col items-center justify-between h-44 shadow-lg">
                     <input type="range" orient="vertical" min="0" max="100" value="50" oninput="adjustVolume(this.value)" class="cursor-pointer accent-white">
-                    <span class="text-2xl mt-2">🔊</span>
+                    <span class="text-2xl mt-1">🔊</span>
                 </div>
             </div>
 
-            <!-- 각종 기능 버튼 그리드 -->
-            <div class="grid grid-cols-4 gap-4 mt-4">
-                <!-- 방해금지 버튼 (클릭 시 토글, 길게 누르면 집중모드 팝업) -->
-                <div id="dnd-btn" onclick="toggleDND()" oncontextmenu="openFocusMenu(event); return false;" class="bg-white/10 backdrop-blur-md rounded-3xl h-24 flex flex-col items-center justify-center p-2 cursor-pointer shadow-lg relative">
-                    <span id="dnd-icon" class="text-2xl mb-1">🌙</span>
-                    <span class="text-[10px] text-center font-medium leading-tight">Do Not Disturb</span>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl h-24 flex flex-col items-center justify-center p-2 cursor-pointer shadow-lg">
-                    <span class="text-2xl mb-1">🔦</span>
-                    <span class="text-[10px] text-center font-medium leading-tight">Flashlight</span>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl h-24 flex flex-col items-center justify-center p-2 cursor-pointer shadow-lg">
-                    <span class="text-2xl mb-1">📷</span>
-                    <span class="text-[10px] text-center font-medium leading-tight">Camera</span>
-                </div>
-                <div class="bg-white/10 backdrop-blur-md rounded-3xl h-24 flex flex-col items-center justify-center p-2 cursor-pointer shadow-lg">
-                    <span class="text-2xl mb-1">🖨️</span>
-                    <span class="text-[10px] text-center font-medium leading-tight">Screen Mirror</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- ════════ 집중모드 팝업 (두 번째 스크린샷 참고) ════════ -->
-        <div id="focus-menu" class="absolute inset-0 bg-black/70 backdrop-blur-xl z-[350] flex flex-col items-center justify-center p-6 opacity-0 pointer-events-none transition-opacity duration-300">
-            <div class="w-full max-w-xs space-y-3">
-                <div onclick="selectFocus('Do Not Disturb')" class="bg-white text-black p-4 rounded-3xl flex items-center justify-between shadow-xl cursor-pointer">
-                    <div class="flex items-center space-x-3"><span class="text-xl">🌙</span><div><div class="font-bold text-sm">Do Not Disturb</div><div id="dnd-status-text" class="text-xs text-gray-500">Off</div></div></div>
-                    <span class="text-gray-400">•••</span>
-                </div>
-                <div onclick="selectFocus('Personal')" class="bg-white/20 backdrop-blur-md p-4 rounded-3xl flex items-center justify-between shadow-xl cursor-pointer">
-                    <div class="flex items-center space-x-3"><span class="text-xl">👤</span><div><div class="font-bold text-sm">Personal</div><div class="text-xs text-gray-300">On</div></div></div>
-                    <span class="text-gray-400">•••</span>
-                </div>
-                <div onclick="selectFocus('Work')" class="bg-white/20 backdrop-blur-md p-4 rounded-3xl flex items-center justify-between shadow-xl cursor-pointer">
-                    <div class="flex items-center space-x-3"><span class="text-xl">💼</span><div><div class="font-bold text-sm">Work</div><div class="text-xs text-gray-300">Off</div></div></div>
-                    <span class="text-gray-400">•••</span>
-                </div>
-                <div onclick="selectFocus('Sleep')" class="bg-white/20 backdrop-blur-md p-4 rounded-3xl flex items-center justify-between shadow-xl cursor-pointer">
-                    <div class="flex items-center space-x-3"><span class="text-xl">🛏️</span><div><div class="font-bold text-sm">Sleep</div><div class="text-xs text-gray-300">Off</div></div></div>
-                    <span class="text-gray-400">•••</span>
-                </div>
-                <button onclick="closeFocusMenu()" class="w-full py-3 rounded-full bg-white/10 text-xs font-bold text-gray-300 mt-4">닫기</button>
-            </div>
+            <button onclick="toggleControlCenter()" class="mt-6 py-3 rounded-full bg-white/20 text-xs font-bold text-white shadow">제어센터 닫기</button>
         </div>
 
         <!-- 실행 중인 앱 전환기 -->
@@ -513,7 +615,7 @@
             });
         }
 
-        // 제어센터 열고 닫기 (상단바 아래로 스와이프)
+        // 제어센터 열고 닫기
         let ccStartY = 0;
         function ccTouchStart(e) { ccStartY = e.touches ? e.touches[0].clientY : e.clientY; }
         function ccTouchEnd(e) {
@@ -522,6 +624,14 @@
                 document.getElementById('control-center').style.transform = 'translateY(0%)';
             }
         }
+        let mouseStartY = 0;
+        document.getElementById('status-bar-area').addEventListener('mousedown', (e) => { mouseStartY = e.clientY; });
+        document.getElementById('status-bar-area').addEventListener('mouseup', (e) => {
+            if (e.clientY - mouseStartY > 40) {
+                document.getElementById('control-center').style.transform = 'translateY(0%)';
+            }
+        });
+
         function toggleControlCenter() {
             const cc = document.getElementById('control-center');
             if (cc.style.transform === 'translateY(0%)') {
@@ -531,52 +641,13 @@
             }
         }
 
-        // 실제 화면 밝기 조절 (해 슬라이더)
         function adjustBrightness(val) {
             const overlay = document.getElementById('brightness-overlay');
-            overlay.style.opacity = val / 100; // 0 ~ 0.8까지 어두워짐
+            let opacity = (80 - val) / 100;
+            if(opacity < 0) opacity = 0;
+            overlay.style.opacity = opacity;
         }
-
-        // 소리 조절
-        function adjustVolume(val) {
-            // 사운드 시뮬레이션
-        }
-
-        // 방해금지 모드 (DND) 토글 및 팝업
-        let isDNDOn = false;
-        function toggleDND() {
-            isDNDOn = !isDNDOn;
-            const btn = document.getElementById('dnd-btn');
-            if(isDNDOn) {
-                btn.className = 'bg-blue-600 backdrop-blur-md rounded-3xl h-24 flex flex-col items-center justify-center p-2 cursor-pointer shadow-lg relative text-white';
-                document.getElementById('dnd-status-text').innerText = 'On';
-            } else {
-                btn.className = 'bg-white/10 backdrop-blur-md rounded-3xl h-24 flex flex-col items-center justify-center p-2 cursor-pointer shadow-lg relative text-white';
-                document.getElementById('dnd-status-text').innerText = 'Off';
-            }
-        }
-
-        // 달 모양 버튼 길게 누를 때 집중모드 메뉴 열기 (모바일 롱프레스 대응)
-        let pressTimer;
-        const dndElement = document.getElementById('dnd-btn');
-        dndElement.addEventListener('touchstart', function() {
-            pressTimer = setTimeout(() => { openFocusMenu(); }, 600);
-        });
-        dndElement.addEventListener('touchend', function() { clearTimeout(pressTimer); });
-        
-        function openFocusMenu(e) {
-            if(e) e.preventDefault();
-            document.getElementById('focus-menu').style.opacity = '1';
-            document.getElementById('focus-menu').style.pointerEvents = 'auto';
-        }
-        function closeFocusMenu() {
-            document.getElementById('focus-menu').style.opacity = '0';
-            document.getElementById('focus-menu').style.pointerEvents = 'none';
-        }
-        function selectFocus(type) {
-            if(type === 'Do Not Disturb') toggleDND();
-            closeFocusMenu();
-        }
+        function adjustVolume(val) {}
 
         // 앱 제어 및 스위처
         let activeAppsList = [];
@@ -625,13 +696,8 @@
             document.getElementById('app-switcher').style.pointerEvents = 'none';
         }
 
-        // 갤러리 기본 기능
-        let masterPhotos = [
-            { id: 1, src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80", favorite: false, deleted: false },
-            { id: 2, src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80", favorite: true, deleted: false },
-            { id: 3, src: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80", favorite: false, deleted: false }
-        ];
-
+        // 갤러리 데이터
+        let masterPhotos = [];
         function renderGallery() {
             const grid = document.getElementById('gallery-grid');
             grid.innerHTML = '';
@@ -671,7 +737,6 @@
         function openCollectionFolder(type) {
             if(type === 'trash') {
                 document.getElementById('trash-manage-view').classList.remove('hidden');
-                renderTrashGrid();
                 return;
             }
             const folderView = document.getElementById('collection-folder-view');
@@ -679,87 +744,121 @@
             const grid = document.getElementById('folder-grid');
             grid.innerHTML = '';
             titleBar.innerText = type === 'favorites' ? 'Favorites' : 'Recently Saved';
-            let targetList = type === 'favorites' ? masterPhotos.filter(p => !p.deleted && p.favorite) : masterPhotos.filter(p => !p.deleted);
-            targetList.forEach(p => {
-                grid.innerHTML += `<div onclick="openPhotoViewerById(${p.id})" class="aspect-square bg-gray-800 rounded-sm overflow-hidden cursor-pointer relative"><img src="${p.src}" class="w-full h-full object-cover"></div>`;
-            });
             folderView.classList.remove('hidden');
         }
         function closeCollectionFolder() { document.getElementById('collection-folder-view').classList.add('hidden'); }
+        function closePhotoViewer() { document.getElementById('photo-viewer').classList.add('hidden'); }
 
-        function renderTrashGrid() {
-            const trashGrid = document.getElementById('trash-grid');
-            trashGrid.innerHTML = '';
-            const trashList = masterPhotos.filter(p => p.deleted);
-            if(trashList.length === 0) {
-                trashGrid.innerHTML = `<div class="col-span-3 text-center text-gray-500 py-10 text-sm">삭제된 항목이 없습니다</div>`;
-                return;
+        // ════════ 카카오톡 채팅 데이터 및 로직 ════════
+        let chatData = {
+            seungmin: {
+                name: "개💛",
+                messages: [
+                    { sender: 'other', text: "형 생일축하해🤍" },
+                    { sender: 'other', text: "이거 예약메세지야" },
+                    { sender: 'other', text: "여긴 새벽 네시라서 혹시 내가 못 일어날까 봐" },
+                    { sender: 'other', text: "일어나면 전화할게" }
+                ]
+            },
+            minsub: {
+                name: "박민섭",
+                messages: [ { sender: 'other', text: "ㅅㅊㅅㅊ" } ]
+            },
+            junho: {
+                name: "김준호",
+                messages: [
+                    { sender: 'other', text: "야 생일축하한다" },
+                    { sender: 'other', text: "조만간 얼굴 한 번 보자" }
+                ]
+            },
+            oliveyoung: {
+                name: "올리브영",
+                messages: [
+                    { sender: 'other', text: "[10월 생일쿠폰 지급] 이민호 님의 생일을 축하드립니다!\n(온라인/오프라인) 2만원 이상 3천원 할인쿠폰이 지급되었습니다. 지급된 쿠폰은 올리브영 app에서 확인 가능합니다." }
+                ]
+            },
+            yujeong: {
+                name: "조유정",
+                messages: [
+                    { sender: 'other', text: "오빠 생일축하드려요!" },
+                    { sender: 'other', text: "오늘 뭐 하세요?" }
+                ]
+            },
+            koreanair: {
+                name: "대한항공",
+                messages: [
+                    { sender: 'other', text: "[항공권 예약 확정] 이민호 님의 오클랜드행 항공권이 예약되었습니다.\n10월 27일 MS125 ICN-AKL 22:50\n\n예약 변경 및 취소 규정은 대한항공 홈페이지를 참고해주십시오." }
+                ]
+            },
+            lotte: {
+                name: "롯데택배",
+                messages: [
+                    { sender: 'other', text: "딩동♬\n이민호고객님!\n진심을 다하는 롯데택배 입니다.\n\n김승민님께서 보내신 상품이 (문 앞)에 도착했습니다.\n\n<배송정보>\n운송장번호 : 100020261025\n보내는분 : 김승민\n받는 분 : 이민호\n\n불편하신 점이나 추가 문의사항은 고객센터 1025-0922로 연락주세요." }
+                ]
             }
-            trashList.forEach(p => {
-                trashGrid.innerHTML += `
-                    <div class="aspect-square bg-gray-800 rounded-sm overflow-hidden relative">
-                        <img src="${p.src}" class="w-full h-full object-cover opacity-70">
-                        <div class="absolute inset-0 flex flex-col justify-between p-2 bg-black/40">
-                            <span class="text-[10px] bg-red-600 text-white px-1 rounded self-start">30일 남음</span>
-                            <div class="flex space-x-1">
-                                <button onclick="restorePhoto(${p.id})" class="bg-blue-600 text-white text-[10px] px-2 py-1 rounded">복구</button>
-                                <button onclick="permDeletePhoto(${p.id})" class="bg-red-600 text-white text-[10px] px-2 py-1 rounded">삭제</button>
-                            </div>
-                        </div>
-                    </div>
-                `;
+        };
+
+        let currentActiveChatKey = null;
+
+        function openKakaoChat(key) {
+            currentActiveChatKey = key;
+            const chat = chatData[key];
+            document.getElementById('chat-room-title').innerText = chat.name;
+            renderChatMessages();
+            document.getElementById('kakao-chat-room-view').classList.remove('hidden');
+        }
+
+        function closeKakaoChat() {
+            document.getElementById('kakao-chat-room-view').classList.add('hidden');
+            document.getElementById('plus-menu-popup').style.transform = 'translateY(100%)';
+        }
+
+        function renderChatMessages() {
+            const area = document.getElementById('chat-messages-area');
+            area.innerHTML = '';
+            const messages = chatData[currentActiveChatKey].messages;
+            messages.forEach(m => {
+                if(m.sender === 'me') {
+                    area.innerHTML += `<div class="flex justify-end"><div class="bg-[#fee500] p-3 rounded-2xl rounded-tr-sm text-sm max-w-[75%] shadow-sm">${m.text}</div></div>`;
+                } else if(m.type === 'photo') {
+                    area.innerHTML += `<div class="flex items-start space-x-2"><div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs shrink-0">👤</div><div class="bg-white p-2 rounded-2xl rounded-tl-sm max-w-[75%] shadow-sm overflow-hidden"><img src="${m.text}" class="w-40 h-40 object-cover rounded-lg"></div></div>`;
+                } else {
+                    area.innerHTML += `<div class="flex items-start space-x-2"><div class="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-xs shrink-0">👤</div><div class="bg-white p-3 rounded-2xl rounded-tl-sm text-sm max-w-[75%] shadow-sm">${m.text}</div></div>`;
+                }
             });
+            area.scrollTop = area.scrollHeight;
         }
 
-        function restorePhoto(id) {
-            const item = masterPhotos.find(p => p.id === id);
-            if(item) { item.deleted = false; renderTrashGrid(); renderGallery(); alert('복구되었습니다.'); }
-        }
-        function permDeletePhoto(id) {
-            if(confirm('영구 삭제하시겠습니까?')) {
-                masterPhotos = masterPhotos.filter(p => p.id !== id);
-                renderTrashGrid();
-                renderGallery();
-            }
-        }
-
-        let currentPhotoId = null;
-        function openPhotoViewerById(id) {
-            const p = masterPhotos.find(item => item.id === id);
-            if(!p) return;
-            currentPhotoId = id;
-            document.getElementById('viewer-img').src = p.src;
-            document.getElementById('viewer-heart-btn').innerText = p.favorite ? '❤️' : '🤍';
-            document.getElementById('photo-viewer').classList.remove('hidden');
-        }
-        function closePhotoViewer() { document.getElementById('photo-viewer').classList.add('hidden'); renderGallery(); }
-        function toggleFavoriteCurrent() {
-            const p = masterPhotos.find(item => item.id === currentPhotoId);
-            if(p) { p.favorite = !p.favorite; document.getElementById('viewer-heart-btn').innerText = p.favorite ? '❤️' : '🤍'; }
-        }
-        function showPhotoInfo() { alert('📅 촬영일: 2026.09.22\n📍 장소: Seoul, Korea'); }
-        function deleteCurrentPhoto() {
-            if(confirm('이 사진을 삭제하시겠습니까? (휴지통에 30일 보관)')) {
-                const p = masterPhotos.find(item => item.id === currentPhotoId);
-                if(p) { p.deleted = true; }
-                closePhotoViewer();
-                renderGallery();
-            }
-        }
-
-        // 카톡 채팅
-        function sendKakao() {
+        function sendKakaoMessage() {
             const input = document.getElementById('chat-input');
             const text = input.value.trim();
             if(!text) return;
-            const chatContainer = document.getElementById('chat-container');
-            chatContainer.innerHTML += `<div class="flex justify-end"><div class="bg-[#fee500] p-3 rounded-2xl rounded-tr-sm text-sm max-w-[75%] shadow-sm">${text}</div></div>`;
+            chatData[currentActiveChatKey].messages.push({ sender: 'me', text: text });
             input.value = '';
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-            setTimeout(() => {
-                chatContainer.innerHTML += `<div class="flex items-end space-x-2"><div class="w-8 h-8 rounded-full bg-gray-400 overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover"></div><div class="bg-white p-3 rounded-2xl rounded-tl-sm text-sm max-w-[75%] shadow-sm">오... 감동인데? ㅋㅋ 고마워 우리 이따 맛있는 거 먹자구! 🍖</div></div>`;
-                chatContainer.scrollTop = chatContainer.scrollHeight;
-            }, 1000);
+            renderChatMessages();
+
+            // 조유정 채팅방 특수 응답
+            if(currentActiveChatKey === 'yujeong') {
+                setTimeout(() => {
+                    chatData['yujeong'].messages.push({ sender: 'other', text: "오늘 약속 없으시면 같이 밥 먹자고 하려고 했는데 ㅎㅎ" });
+                    renderChatMessages();
+                }, 1000);
+            }
+        }
+
+        function togglePlusMenu() {
+            const menu = document.getElementById('plus-menu-popup');
+            if(menu.style.transform === 'translateY(0px)') {
+                menu.style.transform = 'translateY(100%)';
+            } else {
+                menu.style.transform = 'translateY(0px)';
+            }
+        }
+
+        function sendPhotoMessage(photoUrl) {
+            togglePlusMenu();
+            chatData[currentActiveChatKey].messages.push({ sender: 'me', type: 'photo', text: photoUrl });
+            renderChatMessages();
         }
     </script>
 </body>
