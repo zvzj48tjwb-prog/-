@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Minho's Birthday</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Pretendard', sans-serif; user-select: none; -webkit-user-select: none; background: #000; margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .app-window { transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); }
+        .app-window.active { transform: translateY(0); }
+    </style>
+</head>
+<body class="flex justify-center items-center">
+
+    <!-- 아이폰 프레임 -->
+    <div class="relative w-full h-full sm:max-w-[430px] sm:max-h-[932px] bg-black text-white overflow-hidden flex flex-col justify-between sm:rounded-[50px] sm:border-[12px] sm:border-gray-800 shadow-2xl">
+        
+        <!-- 상단 상태바 -->
+        <div class="w-full h-12 px-7 flex justify-between items-center text-sm font-semibold z-50 shrink-0 bg-transparent">
+            <span id="current-time">01:04</span>
+            <div class="w-28 h-6 bg-black rounded-full absolute left-1/2 -translate-x-1/2 top-2.5"></div>
+            <div class="flex items-center space-x-1.5 text-xs">
+                <span>5G</span>
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19h15.3l-.62-1.39C20.26 16.07 21 14.12 21 12c0-4.97-4.03-9-9-9z"/></svg>
+            </div>
+        </div>
+
+        <!-- 메인 화면 영역 -->
+        <div class="relative flex-1 overflow-hidden flex flex-col">
+            
+            <!-- 1. 잠금 화면 (금붕어 그림 배경) -->
+            <div id="lock-screen" class="absolute inset-0 z-40 bg-cover bg-center flex flex-col items-center justify-between py-12 px-6 transition-transform duration-500" style="background-image: url('https://i.ibb.co/6R59V1z/goldfish.jpg'), url('https://images.unsplash.com/photo-1541701494587-cb58502866ab?auto=format&fit=crop&w=1000&q=80');" ontouchstart="touchStart(event)" ontouchend="touchEnd(event)" onmousedown="touchStart(event)" onmouseup="touchEnd(event)">
+                
+                <div class="text-center mt-4">
+                    <div class="text-sm font-medium drop-shadow-md text-gray-700">목요일 9월 22일</div>
+                    <div id="lock-time" class="text-7xl font-bold tracking-tighter drop-shadow-md text-gray-800 mt-1">01:04</div>
+                </div>
+                
+                <!-- 비밀번호 입력 컨테이너 (위로 드래그 시 나타남) -->
+                <div id="pin-container" class="w-full max-w-xs flex flex-col items-center space-y-6 mb-8 opacity-0 pointer-events-none transition-opacity duration-300 bg-black/40 backdrop-blur-xl p-6 rounded-3xl">
+                    <div class="text-xs font-medium tracking-wide text-gray-200">비밀번호를 입력하세요 (승민 생일)</div>
+                    <div class="flex space-x-4">
+                        <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-white bg-transparent transition-all"></div>
+                        <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-white bg-transparent transition-all"></div>
+                        <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-white bg-transparent transition-all"></div>
+                        <div class="pin-dot w-3.5 h-3.5 rounded-full border-2 border-white bg-transparent transition-all"></div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 w-full">
+                        <button onclick="pressPin('1')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">1</button>
+                        <button onclick="pressPin('2')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">2</button>
+                        <button onclick="pressPin('3')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">3</button>
+                        <button onclick="pressPin('4')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">4</button>
+                        <button onclick="pressPin('5')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">5</button>
+                        <button onclick="pressPin('6')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">6</button>
+                        <button onclick="pressPin('7')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">7</button>
+                        <button onclick="pressPin('8')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">8</button>
+                        <button onclick="pressPin('9')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">9</button>
+                        <div></div>
+                        <button onclick="pressPin('0')" class="h-12 rounded-full bg-white/20 backdrop-blur-md text-lg font-medium flex items-center justify-center active:bg-white/40">0</button>
+                        <button onclick="clearPin()" class="h-12 rounded-full text-xs font-medium flex items-center justify-center text-gray-300">지우기</button>
+                    </div>
+                </div>
+
+                <div id="swipe-text" class="text-xs text-gray-600 font-medium tracking-wider animate-bounce">▲ 위로 쓸어올려 잠금 해제</div>
+            </div>
+
+            <!-- 2. 홈 화면 (음식 사진 배경) -->
+            <div class="absolute inset-0 bg-cover bg-center flex flex-col justify-between p-6 overflow-y-auto hide-scrollbar" style="background-image: url('https://images.unsplash.com/photo-1543353071-10c8ba85a904?auto=format&fit=crop&w=1000&q=80');">
+                
+                <!-- 위젯 -->
+                <div class="grid grid-cols-2 gap-3 mt-4">
+                    <div class="bg-black/30 backdrop-blur-md p-3.5 rounded-3xl flex flex-col justify-between shadow-lg">
+                        <span class="text-[11px] text-gray-200 font-medium">D-DAY</span>
+                        <div class="text-lg font-bold mt-1">🎂 민호 생일</div>
+                        <span class="text-[10px] text-gray-300">09.22</span>
+                    </div>
+                    <div class="bg-black/30 backdrop-blur-md p-3.5 rounded-3xl flex flex-col justify-between shadow-lg">
+                        <span class="text-[11px] text-gray-200 font-medium">Weather</span>
+                        <div class="text-lg font-bold mt-1">⛅ 22°C</div>
+                        <span class="text-[10px] text-gray-300">Seoul</span>
+                    </div>
+                </div>
+
+                <!-- 앱 아이콘 -->
+                <div class="grid grid-cols-4 gap-y-6 gap-x-4 my-auto px-1">
+                    <div onclick="openApp('gallery')" class="flex flex-col items-center cursor-pointer">
+                        <div class="w-14 h-14 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl shadow-lg flex items-center justify-center text-2xl">🖼️</div>
+                        <span class="text-[11px] mt-1 font-medium drop-shadow-md">갤러리</span>
+                    </div>
+                    <div onclick="openApp('kakao')" class="flex flex-col items-center cursor-pointer">
+                        <div class="w-14 h-14 bg-yellow-300 rounded-2xl shadow-lg flex items-center justify-center text-2xl relative">
+                            💬
+                            <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold">1</span>
+                        </div>
+                        <span class="text-[11px] mt-1 font-medium drop-shadow-md">카카오톡</span>
+                    </div>
+                    <div onclick="openApp('insta')" class="flex flex-col items-center cursor-pointer">
+                        <div class="w-14 h-14 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded-2xl shadow-lg flex items-center justify-center text-2xl text-white">📸</div>
+                        <span class="text-[11px] mt-1 font-medium drop-shadow-md">인스타</span>
+                    </div>
+                    <div onclick="openApp('bubble')" class="flex flex-col items-center cursor-pointer">
+                        <div class="w-14 h-14 bg-sky-400 rounded-2xl shadow-lg flex items-center justify-center text-2xl text-white relative">
+                            💌
+                            <span class="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full text-[10px] flex items-center justify-center font-bold">1</span>
+                        </div>
+                        <span class="text-[11px] mt-1 font-medium drop-shadow-md">버블</span>
+                    </div>
+                    <div onclick="openApp('calendar')" class="flex flex-col items-center cursor-pointer">
+                        <div class="w-14 h-14 bg-red-500 rounded-2xl shadow-lg flex items-center justify-center text-2xl text-white">📅</div>
+                        <span class="text-[11px] mt-1 font-medium drop-shadow-md">캘린더</span>
+                    </div>
+                </div>
+
+                <!-- 독 바 -->
+                <div class="bg-black/30 backdrop-blur-md rounded-3xl p-3 flex justify-around items-center mb-2 shadow-lg">
+                    <div onclick="openApp('kakao')" class="w-12 h-12 bg-yellow-300 rounded-2xl flex items-center justify-center text-xl cursor-pointer shadow">💬</div>
+                    <div onclick="openApp('gallery')" class="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center text-xl cursor-pointer shadow">🖼️</div>
+                    <div onclick="openApp('insta')" class="w-12 h-12 bg-pink-500 rounded-2xl flex items-center justify-center text-xl cursor-pointer shadow">📸</div>
+                </div>
+            </div>
+
+            <!-- 3. 개별 앱들 -->
+            <div id="app-gallery" class="app-window absolute inset-0 bg-white text-black z-50 flex flex-col">
+                <div class="px-5 py-4 border-b flex justify-between items-center bg-gray-50 shrink-0">
+                    <h2 class="text-base font-bold">추억의 갤러리 📸</h2>
+                    <button onclick="closeApp()" class="text-blue-600 font-semibold text-sm">완료</button>
+                </div>
+                <div class="flex-1 p-3 grid grid-cols-3 gap-2 overflow-y-auto">
+                    <div onclick="viewPhoto(this)" class="aspect-square bg-gray-200 rounded-lg overflow-hidden cursor-pointer"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover"></div>
+                    <div onclick="viewPhoto(this)" class="aspect-square bg-gray-200 rounded-lg overflow-hidden cursor-pointer"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover"></div>
+                    <div onclick="viewPhoto(this)" class="aspect-square bg-gray-200 rounded-lg overflow-hidden cursor-pointer"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=500&q=80" class="w-full h-full object-cover"></div>
+                </div>
+            </div>
+
+            <div id="app-kakao" class="app-window absolute inset-0 bg-[#b2c7d9] text-black z-50 flex flex-col">
+                <div class="px-5 py-4 bg-[#b2c7d9] border-b border-[#9bbbd0] flex justify-between items-center shrink-0">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-gray-400 overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover"></div>
+                        <span class="font-bold text-sm">민호 🐈</span>
+                    </div>
+                    <button onclick="closeApp()" class="font-semibold text-sm text-gray-700">닫기</button>
+                </div>
+                <div id="chat-container" class="flex-1 p-4 overflow-y-auto space-y-3">
+                    <div class="flex items-end space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-400 overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover"></div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-sm text-sm max-w-[75%] shadow-sm">오늘 내 생일인 거 알지? 이따 맛있는 거 사주기 약속 👀🎂</div>
+                    </div>
+                </div>
+                <div class="p-3 bg-white flex items-center space-x-2 shrink-0">
+                    <input id="chat-input" type="text" placeholder="메시지 입력..." class="flex-1 bg-gray-100 px-4 py-2.5 rounded-full text-sm outline-none" onkeypress="if(event.key === 'Enter') sendKakao()">
+                    <button onclick="sendKakao()" class="bg-yellow-400 px-4 py-2 rounded-full text-sm font-bold">전송</button>
+                </div>
+            </div>
+
+            <div id="app-insta" class="app-window absolute inset-0 bg-white text-black z-50 flex flex-col">
+                <div class="px-5 py-4 border-b flex justify-between items-center shrink-0">
+                    <h2 class="text-base font-bold">Instagram</h2>
+                    <button onclick="closeApp()" class="text-blue-600 font-semibold text-sm">닫기</button>
+                </div>
+                <div class="flex-1 overflow-y-auto">
+                    <div class="p-3 flex items-center space-x-3 border-b">
+                        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-yellow-400 to-pink-500 p-0.5"><div class="w-full h-full rounded-full bg-white overflow-hidden"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" class="w-full h-full object-cover"></div></div>
+                        <span class="font-semibold text-sm">minho_lee</span>
+                    </div>
+                    <div><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80" class="w-full aspect-square object-cover"></div>
+                    <div class="p-4 text-sm space-y-1">
+                        <div class="flex space-x-4 text-xl">
+                            <button onclick="this.innerText = this.innerText === '❤️' ? '🤍' : '❤️'">❤️</button>
+                            <span>💬</span>
+                            <span>✈️</span>
+                        </div>
+                        <div class="font-semibold text-xs pt-1">좋아요 922개</div>
+                        <div><span class="font-semibold mr-2 text-sm">minho_lee</span>생일 축하해준 모든 분들 진심으로 고마워요! 사랑합니다 ❤️</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="app-bubble" class="app-window absolute inset-0 bg-[#1c2128] text-white z-50 flex flex-col">
+                <div class="px-5 py-4 border-b border-gray-800 flex justify-between items-center shrink-0">
+                    <h2 class="text-base font-bold">✨ Lysn Bubble</h2>
+                    <button onclick="closeApp()" class="text-sky-400 font-semibold text-sm">닫기</button>
+                </div>
+                <div class="flex-1 p-4 overflow-y-auto space-y-4">
+                    <div class="flex items-start space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-sky-500 overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" class="w-full h-full object-cover"></div>
+                        <div>
+                            <div class="text-xs text-gray-400 mb-1">리노 ✔</div>
+                            <div class="bg-gray-800 p-3 rounded-2xl rounded-tl-sm text-sm max-w-xs leading-relaxed">오늘 날씨 진짜 좋다 ㅎㅎ 다들 오늘 하루도 맛있는 거 잘 챙겨 먹고 행복해야 돼요! 알겠지? 🤍</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="app-calendar" class="app-window absolute inset-0 bg-white text-black z-50 flex flex-col">
+                <div class="px-5 py-4 border-b flex justify-between items-center shrink-0">
+                    <h2 class="text-base font-bold">2026년 9월</h2>
+                    <button onclick="closeApp()" class="text-blue-600 font-semibold text-sm">닫기</button>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-7 text-center font-semibold text-gray-400 text-xs mb-4">
+                        <span>일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+                    </div>
+                    <div class="grid grid-cols-7 text-center gap-y-4 text-sm">
+                        <span class="text-gray-300">27</span><span class="text-gray-300">28</span><span class="text-gray-300">29</span><span class="text-gray-300">30</span><span class="text-gray-300">31</span><span>1</span><span>2</span>
+                        <span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+                        <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span><span>15</span><span>16</span>
+                        <span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                        <span onclick="alert('🎉 9월 22일: 리노의 생일!')" class="bg-blue-500 text-white rounded-full w-7 h-7 flex items-center justify-center mx-auto font-bold shadow cursor-pointer">22</span>
+                        <span>23</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- 하단 홈 바 -->
+        <div class="w-full h-7 flex justify-center items-center shrink-0 z-50 bg-black/20 backdrop-blur-sm cursor-pointer" onclick="closeApp()">
+            <div class="w-32 h-1 bg-white/70 rounded-full"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // 시계
+        function updateTime() {
+            const now = new Date();
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            document.getElementById('current-time').innerText = timeStr;
+            document.getElementById('lock-time').innerText = timeStr;
+        }
+        setInterval(updateTime, 1000);
+        updateTime();
+
+        // 드래그/스와이프 감지
+        let startY = 0;
+        function touchStart(e) {
+            startY = e.touches ? e.touches[0].clientY : e.clientY;
+        }
+        function touchEnd(e) {
+            let endY = e.changedTouches ? e.changedTouches[0].clientY : e.clientY;
+            if (startY - endY > 50) { // 위로 50px 이상 드래그했을 때
+                document.getElementById('pin-container').style.opacity = '1';
+                document.getElementById('pin-container').style.pointerEvents = 'auto';
+                document.getElementById('swipe-text').style.display = 'none';
+            }
+        }
+
+        // 핀코드 잠금해제 (승민 생일 0922)
+        let enteredPin = '';
+        function pressPin(num) {
+            if (enteredPin.length < 4) {
+                enteredPin += num;
+                updatePinDots();
+                if (enteredPin.length === 4) {
+                    setTimeout(() => {
+                        if (enteredPin === '0922') {
+                            document.getElementById('lock-screen').style.transform = 'translateY(-100%)';
+                        } else {
+                            alert('비밀번호가 틀렸습니다! (승민 생일)');
+                            clearPin();
+                        }
+                    }, 150);
+                }
+            }
+        }
+        function clearPin() {
+            enteredPin = '';
+            updatePinDots();
+        }
+        function updatePinDots() {
+            document.querySelectorAll('.pin-dot').forEach((dot, idx) => {
+                dot.style.background = idx < enteredPin.length ? 'white' : 'transparent';
+            });
+        }
+
+        // 앱 제어
+        function openApp(name) {
+            document.querySelectorAll('.app-window').forEach(w => w.classList.remove('active'));
+            document.getElementById(`app-${name}`).classList.add('active');
+        }
+        function closeApp() {
+            document.querySelectorAll('.app-window').forEach(w => w.classList.remove('active'));
+        }
+
+        // 카카오톡 대화
+        function sendKakao() {
+            const input = document.getElementById('chat-input');
+            const text = input.value.trim();
+            if(!text) return;
+            const chatContainer = document.getElementById('chat-container');
+            chatContainer.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-[#fee500] p-3 rounded-2xl rounded-tr-sm text-sm max-w-[75%] shadow-sm">${text}</div>
+                </div>
+            `;
+            input.value = '';
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+
+            setTimeout(() => {
+                chatContainer.innerHTML += `
+                    <div class="flex items-end space-x-2">
+                        <div class="w-8 h-8 rounded-full bg-gray-400 overflow-hidden shrink-0"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80" class="w-full h-full object-cover"></div>
+                        <div class="bg-white p-3 rounded-2xl rounded-tl-sm text-sm max-w-[75%] shadow-sm">오... 감동인데? ㅋㅋ 고마워 우리 이따 맛있는 거 먹자구! 🍖</div>
+                    </div>
+                `;
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            }, 1000);
+        }
+
+        // 사진 크게 보기
+        function viewPhoto(el) {
+            const imgSrc = el.querySelector('img').src;
+            const overlay = document.createElement('div');
+            overlay.className = 'absolute inset-0 bg-black/90 z-[100] flex items-center justify-center p-4 cursor-pointer';
+            overlay.innerHTML = `<img src="${imgSrc}" class="max-w-full max-h-full rounded-xl shadow-2xl">`;
+            overlay.onclick = () => overlay.remove();
+            document.body.appendChild(overlay);
+        }
+    </script>
+</body>
+</html>
